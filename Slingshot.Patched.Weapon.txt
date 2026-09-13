@@ -1,0 +1,24 @@
+# Physics Optimization: Slingshot Energy Management
+class SlingshotProjectile:
+    def __init__(self, initial_velocity):
+        self.velocity = initial_velocity
+        self.bounce_count = 0
+        self.max_bounces = 3
+        self.is_grounded = False
+
+    def handle_collision(self, collision_data):
+        if self.bounce_count < self.max_bounces:
+            self.bounce_count += 1
+            # Apply energy decay to prevent infinite loops
+            self.velocity *= 0.7 
+            self.calculate_new_trajectory(collision_data.normal)
+        else:
+            # Transition to rolling physics to save server resources
+            self.is_grounded = True
+            self.velocity *= 0.5
+            self.set_physics_mode("ROLLING")
+            print("Slingshot projectile energy depleted. Switching to Rolling Mode.")
+
+    def calculate_new_trajectory(self, normal):
+        # Simplified vector math to reduce server-side latency
+        self.velocity = self.velocity.reflect(normal).normalized() * self.velocity.length()
