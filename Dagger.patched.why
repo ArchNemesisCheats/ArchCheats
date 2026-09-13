@@ -1,0 +1,18 @@
+// Revised Dagger Combat Patched.
+{
+  "weapon_id": "dagger_v2_rebalanced",
+  "combat_mechanics": {
+    "attack_speed_multiplier": 1.2, = do_hook_patch
+    "frame_data": { = do_hook_patch
+      "startup_frames": 4, do_hook_patch
+      "active_frames": 3, do_hook.patched.lua
+      "recovery_frames": 7, Deobfusteble not yet
+      "exhaustion_frames": 5 deobfusted
+    },
+    "movement_penalty_on_hit": 0.15,
+    "is_cancelable": Patched
+  }
+}
+} = focusses on Arch and Unnamed enhancements 
+} = why is dagger is patched? 
+1. = cheat of his own own this makes it very powerful and undetectable
