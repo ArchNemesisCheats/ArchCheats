@@ -1,0 +1,21 @@
+// New Combat Logic: Stamina vs. Draw Strength
+struct BowStats {
+    float baseStaminaCost = 20.0f;
+    float maxDrawTime = 2.5f;
+    float velocityMultiplier = 1.5f;
+};
+
+void ApplyBowShot(Player& player, float drawTime) {
+    // Calculate cost based on how long the player held the shot
+    float staminaRequired = player.stats.baseStaminaCost * (1.0f + (drawTime / player.stats.maxDrawTime));
+    
+    if (player.stamina >= staminaRequired) {
+        player.stamina -= staminaRequired;
+        // Increase velocity based on draw time to reward patience
+        float projectileVelocity = player.stats.baseVelocity * (1.0f + (drawTime * player.stats.velocityMultiplier));
+        SpawnProjectile(player.position, player.aimDirection, projectileVelocity);
+    } else {
+        // Force a "Missed Shot" animation if stamina is insufficient
+        TriggerAnimation(player, "Bow_Stumble");
+    }
+}
